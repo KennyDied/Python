@@ -6,7 +6,7 @@ plt.xlabel('Ось x')
 plt.ylabel('Ось y')
 plt.grid()
 
-R = 1000
+R = 1
 n = range(1000)
 t = [2 * pi * i / 100 for i in n]
 x = [R * cos(t[i]) ** 3 for i in n]
