@@ -1,37 +1,28 @@
-def to_roman(data):
-    ones = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"]
-    tens = ["", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"]
-    hunds = ["", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"]
-    thous = ["", "M", "MM", "MMM", "MMMM"]
-
-    t = thous[data // 1000]
-    h = hunds[data // 100 % 10]
-    te = tens[data // 10 % 10]
-    o = ones[data % 10]
-
-    return t + h + te + o
+CONV_TABLE = ((1000, 'M'), (900, 'CM'), (500, 'D'), (400, 'CD'),
+              (100, 'C'), (90, 'XC'), (50, 'L'), (40, 'XL'),
+              (10, 'X'), (9, 'IX'), (5, 'V'), (4, 'IV'), (1, 'I'))
 
 
-def to_arab(data):
-    base = "I" * data
-
-    base = base.replace("I" * 5, "V")
-    base = base.replace("V" * 2, "X")
-    base = base.replace("X" * 5, "L")
-    base = base.replace("L" * 2, "C")
-    base = base.replace("C" * 5, "D")
-    base = base.replace("D" * 2, "M")
-
-    base = base.replace("DCCCC", "CM")
-    base = base.replace("CCCC", "CD")
-    base = base.replace("LXXXX", "XC")
-    base = base.replace("XXXX", "XL")
-    base = base.replace("VIIII", "IX")
-    base = base.replace("IIII", "IV")
-
-    return base
+def arab_to_roman(number):
+    ret = ''
+    for arab, roman in CONV_TABLE:
+        while number >= arab:
+            ret += roman
+            number -= arab
+    return ret
 
 
+def roman_to_arab(txt):
+    txt = txt.upper()
+    ret = 0
+    for arab, roman in CONV_TABLE:
+        while txt.startswith(roman):
+            ret += arab
+            txt = txt[len(roman):]
+    return ret
 
-print(to_roman(1234))
-print(to_arab(str(MMMX)))
+
+for i in (0, 4, 8, 9, 31, 46, 99, 583, 888, 1668, 1989, 2009, 2010, 2011, 3999):
+    arab = arab_to_roman(i)
+    roman = roman_to_arab(arab)
+    print(i, arab, roman)
