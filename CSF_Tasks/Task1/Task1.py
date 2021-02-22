@@ -6,10 +6,10 @@ def solve_task(my_list, n):
     if n < 0:
         n = abs(n)
         for i in range(n):
-            my_list.append(my_list.pop(0))
+            my_list.append(my_list.pop(0))  # в конец
     else:
         for i in range(n):
-            my_list.insert(0, my_list.pop())
+            my_list.insert(0, my_list.pop())  # на указанную позицию, удаляя при этом
     return my_list
 
 
@@ -20,3 +20,6 @@ def write_data(my_new_list):
 
 
 write_data(solve_task(read_data(), 2))
+
+# срезы в python
+# list[n:]+list[:n-1]
