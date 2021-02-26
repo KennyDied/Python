@@ -1,4 +1,3 @@
-
 def read_data():
     c = []
     with open('inputFile.txt', 'r') as f:
@@ -14,23 +13,6 @@ def read_data():
     return c
 
 
-
-def length2(a, b):
-    return (a[0] - b[0])**2 + (a[1] - b[1])**2
-
-
-# подобны ли 2 треугольника, заданные отсортированными массивами длин сторон
-def is_sim(sample, triangle):
-    if sample[0] * triangle[1] != sample[1] * triangle[0]:
-        return False
-    elif sample[0] * triangle[2] != sample[2] * triangle[0]:
-        return False
-    elif sample[1] * triangle[2] != sample[2] * triangle[1]:
-        return False
-    else:
-        return True
-
-
 # преобразование массивов координат в массивы длин сторон
 def make_triangles(v):
     triangles = []
@@ -44,14 +26,33 @@ def make_triangles(v):
     return triangles
 
 
-# основной код
+# квадрат растояния
+def length2(a, b):
+    return (a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2
 
 
-tr = read_data()
-# tr = [[[0, 0], [3, 0], [0, 3]], [[4, 0], [8, 0], [4, 4]]]
-triangles = make_triangles(tr)
-print(triangles)
-for i in range(1, len(triangles)):
-    if is_sim(triangles[0], triangles[i]):
-        print("found similar trinangle: ")
-        print(triangles[0], triangles[i])
+# подобны ли 2 треугольника, заданные отсортированными массивами длин сторон
+def is_triangles_similar(triangle1, triangle2):
+    if triangle1[0] * triangle2[1] != triangle1[1] * triangle2[0]:
+        return False
+    elif triangle1[0] * triangle2[2] != triangle1[2] * triangle2[0]:
+        return False
+    elif triangle1[1] * triangle2[2] != triangle1[2] * triangle2[1]:
+        return False
+    else:
+        return True
+
+
+def write_data(triangles):
+    output = open('outputFile.txt', 'w')
+
+    output_str = str(triangles) + "\n"
+    for i in range(1, len(triangles)):
+        if is_triangles_similar(triangles[0], triangles[i]):
+            output_str += "found similar triangles:  \n"
+            output_str += str(triangles[0]) + str(triangles[i]) + "\n"
+    output.write(output_str)
+
+
+triangles = make_triangles(read_data())
+write_data(triangles)

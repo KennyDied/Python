@@ -1,10 +1,10 @@
-CONV_TABLE = ((1000, 'M'), (900, 'CM'), (500, 'D'), (400, 'CD'),
-              (100, 'C'), (90, 'XC'), (50, 'L'), (40, 'XL'),
-              (10, 'X'), (9, 'IX'), (5, 'V'), (4, 'IV'), (1, 'I'))
+convert_map = ((1000, 'M'), (900, 'CM'), (500, 'D'), (400, 'CD'),
+               (100, 'C'), (90, 'XC'), (50, 'L'), (40, 'XL'),
+               (10, 'X'), (9, 'IX'), (5, 'V'), (4, 'IV'), (1, 'I'))
 
 
 def read_data():
-    return open('inputFile.txt').read().split(',')
+    return open('tests/inputFile5.txt').read().split(',')
 
 
 def write_data(my_new_list):
@@ -16,23 +16,22 @@ def write_data(my_new_list):
 
 
 def arab_to_roman(number):
-    ret = ''
-    for arab, roman in CONV_TABLE:
+    result = ''
+    for arab, roman in convert_map:
         while number >= arab:
-            ret += roman
+            result += roman
             number -= arab
-    return ret
+    return result
 
 
 def roman_to_arab(txt):
     txt = txt.upper()
-    ret = 0
-    for arab, roman in CONV_TABLE:
+    result = 0
+    for arab, roman in convert_map:
         while txt.startswith(roman):
-            ret += arab
+            result += arab
             txt = txt[len(roman):]
-    return ret
-
+    return result
 
 
 array = []
@@ -41,13 +40,10 @@ for el in read_data():
         array.append(str(arab_to_roman(int(el))))
     else:
         array.append(str(roman_to_arab(el)))
-
 write_data(array)
 
 # print(arab_to_roman(int(read_data()[0])))
 # write_data(arab_to_roman(int(read_data()[0])))
-
-
 
 
 # for i in (0, 4, 8, 9, 31, 46, 99, 583, 888, 1668, 1989, 2009, 2010, 2011, 3999):
