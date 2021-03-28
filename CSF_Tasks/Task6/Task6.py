@@ -15,7 +15,7 @@ png_size = (10, 10)
 png_width, png_height = png_size
 grid_size = (3, 3)
 grid_width, grid_height = grid_size
-screen_scale = 25
+screen_scale = 20
 screen_size = (grid_width * screen_scale * png_width, grid_height * screen_scale * png_width)
 screen_width, screen_height = screen_size
 
@@ -46,10 +46,10 @@ def main():
     pygame.init()
     screen = pygame.display.set_mode(screen_size)
     buffer = pygame.Surface((png_width * grid_width, png_height * grid_height))
-    ret = False  # if true the game quits
+    ret = False  # если true - игра заканчивается
     grid = random_grid()
     pygame.display.set_caption("Пробел - рандомизировать, Е - редактировать")
-    edit = False  # edit raw grid mode
+    edit = False  # режим редактирования
     f = BytesIO(bytes(red_button_png))
     red_button_surface = pygame.image.load(f, "png")
     f = BytesIO(bytes(blue_button_png))
@@ -63,7 +63,7 @@ def main():
             if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE: grid = random_grid()
             if event.type == pygame.KEYDOWN and event.key == pygame.K_e: edit = not edit
 
-        # check user input
+        # проверяем ввод
         if pygame.mouse.get_pressed()[0] and click:
             x, y = pygame.mouse.get_pos()
             x = floor(x / (screen_width / grid_width))
@@ -74,10 +74,10 @@ def main():
                 toggle_pos(grid, (x, y + 1))
                 toggle_pos(grid, (x, y - 1))
                 toggle_pos(grid, (x - 1, y))
-
         win = 0
         for i in grid:
-            if not 1 in i: win += 1
+            if not 1 in i:
+                win += 1
         if win == len(grid) and not edit:
             pygame.display.set_caption("Вы победили!")
         elif edit:
@@ -85,7 +85,7 @@ def main():
         else:
             pygame.display.set_caption("Выключить свет")
 
-        # fill out texture
+        # заполнить текстурой
         for i in range(grid_height):
             for j in range(grid_width):
                 if grid[i][j] == 0:

@@ -1,13 +1,12 @@
 def decorator_function(func):
     def wrapper(*args):
-        print('Функция-обёртка!')
+        print('Это функция обертка')
         print('Оборачиваемая функция: {}'.format(func))
-        print('Выполняем обёрнутую функцию...')
+        print('Выполняем обернутую функцию...')
         print('Сумма первых', *args, 'чисел Фибоначчи: ', sum(func(*args)))
         print('Первые', *args, 'чисел Фибоначчи: ', list(func(*args)))
         print('Выходим из обёртки')
         return func
-
     return wrapper
 
 
