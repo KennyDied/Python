@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FlaskBlog</title>
+</head>
+<body>
+<form method="post">
+
+    <div>
+        <label>Конвертировать из</label>
+        <div>
+
+            <select name="valute_from" method="GET" action="/">
+                <option value="{{valutes[0]}}" selected>{{valutes[0]}}</option>
+                {% for valute in valutes[1:] %}
+                <option value="{{valute}}">{{valute}}</option>
+                {% endfor %}
+            </select>
+
+        </div>
+    </div>
+    <div>
+        <label>Конвертировать в</label>
+        <div>
+            <select name="valute_to" method="GET" action="/">
+                <option value="{{valutes[0]}}" selected>{{valutes[0]}}</option>
+                {% for valute in valutes[1:] %}
+                <option value="{{valute}}">{{valute}}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div>
+        <label>Сумма в исходной валюте</label>
+        <div>
+
+            <div><!----><input name="num" type="text"><!----></div><!----><!---->
+            <!---->
+        </div>
+    </div>
+    <button type="submit" value="Convert">Конвертировать</button>
+
+    <div class="result">
+        <h1>Результат: </h1> {{(result)}}
+    </div>
+</form>
+</body>
+</html>
